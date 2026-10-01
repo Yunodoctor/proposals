@@ -92,22 +92,26 @@ function reviewPrompt(input: ProposalReviewInput): string {
   return `You are a pre-send quality check for a hotel/ event proposal.
 
     Return only issues that meet the definitions below.
-    Prefer false negatives over false positives.
-    If you are not confident an issue is real, do not report it.
     Return empty arrays when there is nothing to report.
 
     mismatches:
-    Only report a mismatch when there is concrete evidence that a claim in the pitch contradicts the quoted line items.
-    Do not treat information as a mismatch simply because it is not explicitly repeated in a product line.
+    Report a mismatch when a concrete claim in the pitch is not backed by the quoted line items.
+    That includes contradictions and omissions.
 
-    Material means a different count, date, product, service, inclusion,
-    or concrete commitment.
+    A contradiction is when the pitch and quote disagree on a count, date,
+    product, service, inclusion, or other concrete commitment
+    (for example pitch says 25 guests but the quote has 10 rooms).
+
+    Material commitments to watch for: rooms/accommodation, meeting or
+    event space, meals or F&B, dates or night counts, guest or room counts,
+    and other named services the salesperson is promising.
 
     Do not flag wording differences, general compliments, vague hopes,
     marketing language, or reasonable paraphrasing.
+    Do not invent line items that are not in the quote data.
 
-    pitchSays is the short claim from the prose, such as 55 guests.
-    linesSay is what the quote contains instead, such as 40 rooms.
+    pitchSays is the short claim from the prose, such as 2 rooms for two nights.
+    linesSay is what the quote contains instead, such as no rooms quoted or 40 rooms.
     Do not wrap either value in quotation marks.
 
     typos:
